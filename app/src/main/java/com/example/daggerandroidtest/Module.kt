@@ -1,5 +1,6 @@
 package com.example.daggerandroidtest
 
+import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.android.AndroidInjectionModule
@@ -20,12 +21,16 @@ abstract class ActivityModule {
 @Singleton
 @Component(
     modules = [
+        AndroidInjectionModule::class,
         AppModule::class,
-        ActivityModule::class,
-        AndroidInjectionModule::class
+        ActivityModule::class
     ]
 )
 interface AppComponent : AndroidInjector<MyApplication> {
     @Component.Factory
-    interface Factory : AndroidInjector.Factory<MyApplication>
+    interface Factory : AndroidInjector.Factory<MyApplication> {
+        override fun create(
+            @BindsInstance application: MyApplication
+        ): AppComponent
+    }
 }

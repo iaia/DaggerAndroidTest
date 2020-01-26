@@ -8,10 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.daggerandroidtest.databinding.ActivityMainBinding
 import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private val app by lazy { application as MyApplication }
+    @Inject
+    lateinit var app: MyApplication
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(
             this, R.layout.activity_main

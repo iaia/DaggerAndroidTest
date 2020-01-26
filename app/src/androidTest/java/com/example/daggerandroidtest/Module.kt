@@ -1,12 +1,14 @@
 package com.example.daggerandroidtest
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import dagger.*
+import dagger.BindsInstance
+import dagger.Component
+import dagger.Module
+import dagger.Provides
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
-import javax.inject.Inject
+import io.mockk.mockk
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -19,22 +21,17 @@ class TestAppModule {
 
 @Module
 abstract class TestActivityModule {
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector()
     abstract fun contributeMainActivity(): MainActivity
 }
 
 @Module
-abstract class TestViewModelFactoryModule {
-    @Binds
-    abstract fun bindViewModelFactory(viewModelFactory: TestViewModelFactory): ViewModelProvider.Factory
-}
+object TestViewModelFactoryModule {
+    val viewModelFactory = mockk<ViewModelProvider.Factory>()
 
-class TestViewModelFactory @Inject constructor(
-    @Named("applicationText")
-    private val applicationText: String
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainActivityViewModel(applicationText) as T
+    @Provides
+    fun provideViewModelFactory(): ViewModelProvider.Factory {
+        return viewModelFactory
     }
 }
 

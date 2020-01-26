@@ -7,6 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import io.mockk.every
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -29,6 +30,7 @@ class MainActivityTest {
         val appText = "HOI"
         viewModel = MainActivityViewModel(appText)
         viewModel.text.postValue("Hello World!")
+        every { TestViewModelFactoryModule.viewModelFactory.create(MainActivityViewModel::class.java) } returns viewModel
         /*
         val viewModelText = MutableLiveData("Hello World!")
         every { viewModel.appText } returns appText

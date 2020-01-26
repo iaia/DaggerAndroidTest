@@ -11,25 +11,25 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class AppModule {
+class TestAppModule {
     @Provides
     @Named("applicationText")
     fun provideApplicationText(application: MyTestApplication) = application.applicationText
 }
 
 @Module
-abstract class ActivityModule {
+abstract class TestActivityModule {
     @ContributesAndroidInjector
     abstract fun contributeMainActivity(): MainActivity
 }
 
 @Module
-abstract class ViewModelFactoryModule {
+abstract class TestViewModelFactoryModule {
     @Binds
-    abstract fun bindViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
+    abstract fun bindViewModelFactory(viewModelFactory: TestViewModelFactory): ViewModelProvider.Factory
 }
 
-class ViewModelFactory @Inject constructor(
+class TestViewModelFactory @Inject constructor(
     @Named("applicationText")
     private val applicationText: String
 ) : ViewModelProvider.Factory {
@@ -42,9 +42,9 @@ class ViewModelFactory @Inject constructor(
 @Component(
     modules = [
         AndroidInjectionModule::class,
-        AppModule::class,
-        ActivityModule::class,
-        ViewModelFactoryModule::class
+        TestAppModule::class,
+        TestActivityModule::class,
+        TestViewModelFactoryModule::class
     ]
 )
 interface TestAppComponent : AndroidInjector<MyTestApplication> {

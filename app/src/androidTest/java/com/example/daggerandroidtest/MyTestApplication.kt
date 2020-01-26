@@ -5,15 +5,14 @@ import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
 
-class MyTestApplication : Application(), HasAndroidInjector {
-    val applicationText = "FUGA"
+class MyTestApplication : MyApplication() {
+    override val applicationText = "FUGA"
 
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+    override lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun androidInjector(): AndroidInjector<Any> {
         DaggerTestAppComponent.factory().create(this).inject(this)

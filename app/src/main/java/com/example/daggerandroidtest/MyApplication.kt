@@ -6,10 +6,10 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class MyApplication : Application(), HasAndroidInjector {
-    val applicationText = "hoge"
+open class MyApplication : Application(), HasAndroidInjector {
+    open val applicationText = "hoge"
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+    open lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun androidInjector(): AndroidInjector<Any> {
         DaggerAppComponent.factory().create(this).inject(this)

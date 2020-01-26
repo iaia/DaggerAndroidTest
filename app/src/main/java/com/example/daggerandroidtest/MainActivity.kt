@@ -1,8 +1,11 @@
 package com.example.daggerandroidtest
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.daggerandroidtest.databinding.ActivityMainBinding
 import dagger.android.AndroidInjection
 
@@ -14,7 +17,14 @@ class MainActivity : AppCompatActivity() {
             this, R.layout.activity_main
         )
     }
-    private val viewModel by lazy { MainActivityViewModel(app.applicationText) }
+    private val viewModelFactory = object : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return MainActivityViewModel(app.applicationText) as T
+        }
+    }
+    private val viewModel: MainActivityViewModel by viewModels {
+        viewModelFactory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)

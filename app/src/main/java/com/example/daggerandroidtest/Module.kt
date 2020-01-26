@@ -1,5 +1,7 @@
 package com.example.daggerandroidtest
 
+import androidx.lifecycle.ViewModelProvider
+import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
@@ -18,12 +20,19 @@ abstract class ActivityModule {
     abstract fun contributeMainActivity(): MainActivity
 }
 
+@Module
+abstract class ViewModelFactoryModule {
+    @Binds
+    abstract fun bindViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
+}
+
 @Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
         AppModule::class,
-        ActivityModule::class
+        ActivityModule::class,
+        ViewModelFactoryModule::class
     ]
 )
 interface AppComponent : AndroidInjector<MyApplication> {

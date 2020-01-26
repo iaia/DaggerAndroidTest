@@ -11,19 +11,14 @@ import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var app: MyApplication
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(
             this, R.layout.activity_main
         )
     }
-    private val viewModelFactory = object : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return MainActivityViewModel(app.applicationText) as T
-        }
-    }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel: MainActivityViewModel by viewModels {
         viewModelFactory
     }
@@ -33,5 +28,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding.viewModel = viewModel
+    }
+}
+
+class ViewModelFactory @Inject constructor(
+    private val application: MyApplication
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return MainActivityViewModel(application.applicationText) as T
     }
 }

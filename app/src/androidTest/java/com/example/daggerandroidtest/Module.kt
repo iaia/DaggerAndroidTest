@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
+import io.mockk.MockKSettings.relaxed
 import io.mockk.mockk
 import javax.inject.Named
 import javax.inject.Singleton
@@ -27,7 +28,7 @@ abstract class TestActivityModule {
 
 @Module
 object TestViewModelFactoryModule {
-    val viewModelFactory = mockk<ViewModelProvider.Factory>()
+    val viewModelFactory = mockk<ViewModelProvider.Factory>(relaxed = true)
 
     @Provides
     fun provideViewModelFactory(): ViewModelProvider.Factory {

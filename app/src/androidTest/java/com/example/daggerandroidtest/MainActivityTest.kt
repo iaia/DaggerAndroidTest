@@ -30,7 +30,7 @@ class MainActivityTest {
 
     @Test
     fun shouldShowHelloWorld() {
-        onView(withId(R.id.tv_hello_world)).check(matches(withText("Hello World!")))
-        onView(withId(R.id.tv_hello_world)).check(matches(withText("Hello World?")))
+        onView(withId(R.id.tv_hello_world)).check(matches(withText("hello world?")))
+        onView(withId(R.id.tv_app_text)).check(matches(withText("hoge")))
     }
 }

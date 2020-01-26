@@ -1,12 +1,19 @@
 package com.example.daggerandroidtest
 
 import android.os.Bundle
-import dagger.android.support.DaggerAppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.example.daggerandroidtest.databinding.ActivityMainBinding
 
-class MainActivity : DaggerAppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(
+            this, R.layout.activity_main
+        )
+        val app = application as MyApplication
+        val viewModel = MainActivityViewModel(app.applicationText)
+        binding.viewModel = viewModel
     }
 }

@@ -9,13 +9,13 @@ android {
 
     defaultConfig {
         applicationId "com.example.daggerandroidtest"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
         testApplicationId "com.example.daggerandroidtest.test"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.daggerandroidtest.MyTestRunner"
     }
 
     buildTypes {
@@ -48,6 +48,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android:2.25.4"
     implementation "com.google.dagger:dagger-android-support:2.25.4"
     kapt "com.google.dagger:dagger-android-processor:2.25.4"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:2.25.4"
 
     implementation "androidx.activity:activity-ktx:1.1.0"
     // ViewModel and LiveData
@@ -82,5 +83,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    androidTestImplementation "io.mockk:mockk-android:1.9.3"
 
 }

@@ -16,3 +16,4 @@ class MyApplication : Application(), HasAndroidInjector {
         return dispatchingAndroidInjector
     }
 }
+

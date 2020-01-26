@@ -14,7 +14,7 @@ import javax.inject.Singleton
 class AppModule {
     @Provides
     @Named("applicationText")
-    fun provideApplicationText(application: MyApplication): String = application.applicationText
+    fun provideApplicationText(application: MyTestApplication) = application.applicationText
 }
 
 @Module
@@ -47,11 +47,11 @@ class ViewModelFactory @Inject constructor(
         ViewModelFactoryModule::class
     ]
 )
-interface AppComponent : AndroidInjector<MyApplication> {
+interface TestAppComponent : AndroidInjector<MyTestApplication> {
     @Component.Factory
-    interface Factory : AndroidInjector.Factory<MyApplication> {
+    interface Factory : AndroidInjector.Factory<MyTestApplication> {
         override fun create(
-            @BindsInstance application: MyApplication
-        ): AppComponent
+            @BindsInstance application: MyTestApplication
+        ): TestAppComponent
     }
 }

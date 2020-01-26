@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.daggerandroidtest.databinding.ActivityMainBinding
 import dagger.android.AndroidInjection
@@ -31,10 +30,3 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class ViewModelFactory @Inject constructor(
-    private val application: MyApplication
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainActivityViewModel(application.applicationText) as T
-    }
-}

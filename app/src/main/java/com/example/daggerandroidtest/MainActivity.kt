@@ -7,13 +7,16 @@ import com.example.daggerandroidtest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(
+    private val app = application as MyApplication
+    private val binding by lazy {
+        DataBindingUtil.setContentView<ActivityMainBinding>(
             this, R.layout.activity_main
         )
-        val app = application as MyApplication
-        val viewModel = MainActivityViewModel(app.applicationText)
+    }
+    private val viewModel by lazy { MainActivityViewModel(app.applicationText) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
     }
 }
